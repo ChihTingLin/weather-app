@@ -9,7 +9,7 @@ export default function Home() {
   const loc = decodeURIComponent(location);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/weather?locationName=${loc}`)
+    fetch(`/api/weather?locationName=${loc}`)
       .then((res) => res.json())
       .then((d) => setLocationData(d.records.location[0]));
   }, [loc]);
