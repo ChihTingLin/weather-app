@@ -5,11 +5,10 @@ import * as echarts from "echarts";
 function ECharts({
   options = {},
   style = {},
-  className = "",
   loading = false,
   message = "",
 }) {
-  const [chart, setChart] = useState<null | echarts.Echarts>(null);
+  const [chart, setChart] = useState<null | echarts.ECharts>(null);
   const [resizeObserver, setResizeObserver] = useState<any>(null);
   const chartRef = useRef(null);
 
@@ -45,8 +44,8 @@ function ECharts({
   useEffect(() => {
     if (window && !resizeObserver) {
       const observer = new window.ResizeObserver((entries) => {
-        entries.map(({ target }) => {
-          const instance = echarts.getInstanceByDom(target);
+        entries.map((e: any) => {
+          const instance = echarts.getInstanceByDom(e.target);
           if (instance) {
             instance.resize();
           }

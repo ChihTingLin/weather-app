@@ -10,7 +10,7 @@ export default function LocationWeather({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const [location, setLocation] = useState(locations[0]);
-  const [locationData, setLocationData] = useState(null);
+  const [locationData, setLocationData] = useState<any>(null);
   const loc = decodeURIComponent(location);
 
   useEffect(() => {

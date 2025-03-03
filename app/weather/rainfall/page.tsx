@@ -6,16 +6,16 @@ import dayjs from "dayjs";
 
 const getChartsOption = (weatherElement: any) => {
   return weatherElement.reduce(
-    (opt, el, index) => {
+    (opt: any, el: any, index: number) => {
       if (index !== 11) return opt;
-      opt.xAxis.data = el.Time.map((t) =>
+      opt.xAxis.data = el.Time.map((t: any) =>
         dayjs(t.StartTime).format("MM/DD HH:mm ddd")
       );
       opt.legend.data.push(el.ElementName);
       opt.series.push({
         name: el.ElementName,
         type: "line",
-        data: el.Time.map((t) => Object.values(t.ElementValue[0])[0])
+        data: el.Time.map((t: any) => Object.values(t.ElementValue[0])[0]),
       });
       return opt;
     },
@@ -31,10 +31,10 @@ const getChartsOption = (weatherElement: any) => {
         data: [],
       },
       yAxis: {
-        type: 'value',
+        type: "value",
         axisLabel: {
-          formatter: '{value} %'
-        }
+          formatter: "{value} %",
+        },
       },
       series: [],
     }
@@ -43,9 +43,9 @@ const getChartsOption = (weatherElement: any) => {
 export default function RainfallPage() {
   const [location, setLocation] = useState(locations[0]);
   const [distIndex, setDistIndex] = useState<number>(-1);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
   const dists = useMemo(() => {
-    return data?.Location?.map((l) => ({
+    return data?.Location?.map((l: any) => ({
       value: l.LocationName,
       label: l.LocationName,
     }));
@@ -55,7 +55,7 @@ export default function RainfallPage() {
     fetch(`/api/weather/weekly?locationName=${location}`)
       .then((res) => res.json())
       .then((json) => {
-        json.chart = json.Location.map((l) =>
+        json.chart = json.Location.map((l: any) =>
           getChartsOption(l.WeatherElement)
         );
         setData(json);
@@ -79,7 +79,7 @@ export default function RainfallPage() {
             className="text-xl"
             onChange={(e) => setDistIndex(parseInt(e.target.value))}
           >
-            {dists.map((d, i) => (
+            {dists.map((d: { value: string; label: string }, i: number) => (
               <option key={i} value={i}>
                 {d.label}
               </option>
