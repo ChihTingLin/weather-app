@@ -3,12 +3,7 @@ import { useEffect, useState } from "react";
 import { locations } from "./staticData";
 import dayjs from "dayjs";
 
-export default function LocationWeather({
-  params,
-}: {
-  params: Promise<{ location: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default function Home() {
   const [location, setLocation] = useState(locations[0]);
   const [locationData, setLocationData] = useState<any>(null);
   const loc = decodeURIComponent(location);
@@ -17,7 +12,7 @@ export default function LocationWeather({
     fetch(`http://localhost:3000/api/weather?locationName=${loc}`)
       .then((res) => res.json())
       .then((d) => setLocationData(d.records.location[0]));
-  }, [location]);
+  }, [loc]);
 
   return (
     <div className="">

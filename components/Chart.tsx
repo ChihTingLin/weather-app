@@ -21,7 +21,7 @@ function ECharts({
     chart.setOption(options);
     setChart(chart);
     if (resizeObserver) resizeObserver.observe(chartRef.current);
-  }, [options]);
+  }, [options, resizeObserver]);
 
   useEffect(() => {
     if (!chart) {
@@ -53,7 +53,8 @@ function ECharts({
       });
       setResizeObserver(observer);
     }
-  });
+  }, []);
+  
   const newStyle = {
     height: 350,
     ...style,
